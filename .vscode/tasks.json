@@ -4,7 +4,7 @@
     {
       "type": "shell",
       "label": "Start dev server",
-      "command": "go run .",
+      "command": "go cmd/run .",
       "detail": "go dev",
       "problemMatcher": []
     }

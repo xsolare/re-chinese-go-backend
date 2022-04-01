@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq" //PostgreSQL Driver
 
-	env "github.com/xsolare/re-chinese-go-backend/config"
+	env "github.com/xsolare/re-chinese-go-backend/configs"
 )
 
 var ormObject orm.Ormer
