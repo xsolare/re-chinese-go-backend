@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/xsolare/re-chinese-go-backend/global"
-	"github.com/xsolare/re-chinese-go-backend/models"
+	"github.com/xsolare/re-chinese-go-backend/api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
