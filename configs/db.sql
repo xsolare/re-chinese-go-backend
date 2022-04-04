@@ -11,4 +11,3 @@ INSERT INTO languages(name, short_name) VALUES('Russia','rus'), ('English','eng'
 INSERT INTO initials(name)   VALUES('b'),('p'),('m'),('f'),('d'),('t'),('n'),('l'),('g'),('k'),('h'),('j'),('q'),('x'),('z'),('c'),('s'),('zh'),('ch'),('sh'),('r');
 INSERT INTO finals(name)     VALUES('a'),('o'),('e'),('i'),('u'),('ü'),('ai'),('ao'),('an'),('ang'),('ou'),('ong'),('ei'),('en'),('eng'),('er'),('ia'),('iao'),('ian'),('iang'),('ie'),('iu'),('in'),('ing'),('iong'),('ua'),('uai'),('uan'),('uang'),('uo'),('ui'),('un'),('üe'),('üan'),('ün'),('ueng');
 -- End ;
-
