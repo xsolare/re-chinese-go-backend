@@ -3,8 +3,8 @@ package initialize
 import (
 	"os"
 
-	"github.com/xsolare/re-chinese-go-backend/global"
 	"github.com/xsolare/re-chinese-go-backend/api/models"
+	"github.com/xsolare/re-chinese-go-backend/global"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -30,8 +30,8 @@ func Gorm() *gorm.DB {
 
 func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
-		models.User{},
 		models.Role{},
+		models.User{},
 		models.Initial{},
 		models.Final{},
 		models.FinalTone{},
@@ -39,6 +39,9 @@ func RegisterTables(db *gorm.DB) {
 		models.Language{},
 		models.PartOfSpeech{},
 		models.Hieroglyph{},
+		models.Categorie{},
+		models.Hsk{},
+		models.HieroglyphCollection{},
 	)
 	if err != nil {
 		global.GV_LOG.Error("register table failed")
