@@ -13,8 +13,8 @@ func main() {
 	global.GV_DB = initialize.Gorm()
 
 	//?		Init model / Run migration		?//
-	initialize.RegisterTables(global.GV_DB)
-	initialize.RunMigration(global.GV_DB)
+	// initialize.RegisterTables(global.GV_DB)
+	// initialize.RunMigration(global.GV_DB)
 
 	//?		Gin routes and run server 		?//
 	r := initialize.NewRoutes()
