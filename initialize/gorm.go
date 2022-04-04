@@ -39,8 +39,8 @@ func RegisterTables(db *gorm.DB) {
 		models.Language{},
 		models.PartOfSpeech{},
 		models.Hieroglyph{},
-		models.Categorie{},
 		models.Hsk{},
+		models.Categorie{},
 		models.HieroglyphCollection{},
 	)
 	if err != nil {
