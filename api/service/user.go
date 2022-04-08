@@ -5,14 +5,14 @@ import (
 	"github.com/xsolare/re-chinese-go-backend/global"
 )
 
-type FinalService struct{}
+type UserService struct{}
 
 /// 																	///
 
-func (finalService *FinalService) Finals() (err error, model []models.Final) {
-	var data []models.Final
+func (userService *UserService) Users() (err error, model []models.User) {
+	var data []models.User
 
-	db := global.GV_DB.Model(&models.Final{})
+	db := global.GV_DB.Model(&models.User{})
 
 	err = db.Find(&data).Error
 

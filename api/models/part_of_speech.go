@@ -1,10 +1,12 @@
 package models
 
 type PartOfSpeech struct {
-	Id   uint   `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Name string `gorm:"type:varchar(32);unique;not null" 	json:"name"`
+	Id         uint   `gorm:"primaryKey;autoIncrement"			json:"id"`
+	Name       string `gorm:"type:varchar(32);unique;not null" 	json:"name"`
+	Word       Word
+	Hieroglyph Hieroglyph
 }
 
 func (s *PartOfSpeech) TableName() string {
-	return "part_of_speech"
+	return "parts_of_speech"
 }

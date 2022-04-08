@@ -11,13 +11,13 @@ type FinalController struct{}
 
 /// 																	///
 
-func (r *FinalController) GetFinals(c *gin.Context) {
-	err, final := finalService.Finals()
+func (r *FinalController) GetAll(c *gin.Context) {
+	err, finals := finalService.Finals()
 
 	if err != nil {
 		global.GV_LOG.Error("Nope!")
 	}
-	c.JSON(http.StatusOK, final)
+	c.JSON(http.StatusOK, finals)
 }
 
 // func GetFinals(c *gin.Context) {
