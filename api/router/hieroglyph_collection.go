@@ -11,5 +11,5 @@ func (r *HieroglyphCollectionRouter) InitHieroglyphCollectionRouter(rg *gin.Rout
 	hieroglyphCollectionController := rg.Group("/hieroglyph_collection")
 	api := new(controllers.HieroglyphCollectionController)
 
-	hieroglyphCollectionController.GET("/", api.GetHieroglyphCollection)
+	hieroglyphCollectionController.GET("/:id", api.GetById)
 }

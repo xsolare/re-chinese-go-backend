@@ -32,16 +32,21 @@ func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
 		models.Role{},
 		models.User{},
+		models.UserStat{},
 		models.Initial{},
 		models.Final{},
 		models.FinalTone{},
 		models.Pinyin{},
 		models.Language{},
 		models.PartOfSpeech{},
-		models.Hieroglyph{},
-		models.Hsk{},
 		models.Categorie{},
+		models.Hieroglyph{},
 		models.HieroglyphCollection{},
+		models.HieroglyphTranslate{},
+		models.Word{},
+		models.WordHieroglyph{},
+		models.WordTranslate{},
+		models.WordCollection{},
 	)
 	if err != nil {
 		global.GV_LOG.Error("register table failed")

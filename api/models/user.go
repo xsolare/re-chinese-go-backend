@@ -18,6 +18,12 @@ type User struct {
 	HieroglyphCollection []HieroglyphCollection `gorm:"foreignKey:AuthorId;references:Id"`
 }
 
+func (m *User) AfterCreate(db *gorm.DB) error {
+	userStat := UserStat{UserId: m.Id}
+	db.Create(&userStat)
+	return nil
+}
+
 func (m *User) BeforeUpdate(db *gorm.DB) error {
 	m.UpdatedAt = time.Now().Local()
 	return nil

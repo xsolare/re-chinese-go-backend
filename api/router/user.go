@@ -13,5 +13,5 @@ func (r *UserRouter) InitUserRouter(rg *gin.RouterGroup) {
 	userRouter := rg.Group("/user")
 	api := new(controllers.UserController)
 
-	userRouter.GET("/", api.GetUsers)
+	userRouter.GET("/", api.GetAll)
 }
