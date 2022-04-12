@@ -7,4 +7,5 @@ type ServiceGroup struct {
 	WordCollectionService
 	WordService
 	PinyinService
+	HieroglyphService
 }
