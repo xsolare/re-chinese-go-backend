@@ -25,6 +25,7 @@ func NewRoutes() Routes {
 	routes.PinyinRouter.InitPinyinRouter(api)
 	routes.WordCollectionRouter.InitWordCollectionRouter(api)
 	routes.HieroglyphCollectionRouter.InitHieroglyphCollectionRouter(api)
+	routes.HieroglyphRouter.InitHieroglyphRouter(api)
 
 	return r
 }

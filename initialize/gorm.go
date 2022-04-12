@@ -58,3 +58,8 @@ func RegisterTables(db *gorm.DB) {
 func RunMigration(db *gorm.DB) {
 	models.InitDb(global.GV_DB)
 }
+
+func ResetSchema(db *gorm.DB) {
+	db.Raw("drop schema public cascade;")
+	db.Raw("create schema public;")
+}
