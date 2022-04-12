@@ -21,16 +21,14 @@ func NewRoutes() Routes {
 
 	routes.FinalRouter.InitFinalRouter(api)
 	routes.UserRouter.InitUserRouter(api)
+	routes.WordRouter.InitWordRouter(api)
+	routes.PinyinRouter.InitPinyinRouter(api)
+	routes.WordCollectionRouter.InitWordCollectionRouter(api)
+	routes.HieroglyphCollectionRouter.InitHieroglyphCollectionRouter(api)
+	routes.HieroglyphRouter.InitHieroglyphRouter(api)
 
 	return r
 }
-
-// //* Combine handlers
-// func (r Routes) AddUsers(rg *gin.RouterGroup) {
-// 	users := rg.Group("/users")
-
-// 	users.GET("/", controllers.GetUsers)
-// }
 
 //* Startup
 func (r Routes) Run(addr ...string) error {

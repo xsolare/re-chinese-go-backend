@@ -13,5 +13,5 @@ func (r *FinalRouter) InitFinalRouter(rg *gin.RouterGroup) {
 	finalRouter := rg.Group("/final")
 	api := new(controllers.FinalController)
 
-	finalRouter.GET("/", api.GetFinals)
+	finalRouter.GET("/", api.GetAll)
 }
