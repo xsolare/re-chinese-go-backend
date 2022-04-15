@@ -10,12 +10,32 @@ type HieroglyphService struct{}
 
 /// 																	///
 
+func (hieroglyphService *HieroglyphService) ById(id string) (err error, model models.Hieroglyph) {
+	var data models.Hieroglyph
+
+	db := global.GV_DB.Model(&models.Hieroglyph{})
+
+	err = db.Where("id = ?", id).First(&data).Error
+
+	return err, data
+}
+
 func (hieroglyphService *HieroglyphService) ByName(name string) (err error, model []models.Hieroglyph) {
 	var data []models.Hieroglyph
 
 	db := global.GV_DB.Model(&models.Hieroglyph{})
 
-	err = db.Where("name = ?", name).Find(&data).Error
+	err = db.Where("hieroglyph = ?", name).Find(&data).Error
+
+	return err, data
+}
+
+func (hieroglyphService *HieroglyphService) ByPinyin(pinyin string) (err error, model []models.Hieroglyph) {
+	var data []models.Hieroglyph
+
+	db := global.GV_DB.Model(&models.Hieroglyph{})
+
+	err = db.Where("pinyin_id = ?", pinyin).Find(&data).Error
 
 	return err, data
 }
