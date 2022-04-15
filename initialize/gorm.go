@@ -43,6 +43,7 @@ func RegisterTables(db *gorm.DB) {
 		models.Hieroglyph{},
 		models.HieroglyphCollection{},
 		models.HieroglyphTranslate{},
+		models.HieroglyphKey{},
 		models.Word{},
 		models.WordHieroglyph{},
 		models.WordTranslate{},
