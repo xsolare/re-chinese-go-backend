@@ -43,10 +43,12 @@ func RegisterTables(db *gorm.DB) {
 		models.Hieroglyph{},
 		models.HieroglyphCollection{},
 		models.HieroglyphTranslate{},
+		models.HieroglyphKey{},
 		models.Word{},
 		models.WordHieroglyph{},
 		models.WordTranslate{},
 		models.WordCollection{},
+		models.OperationRecord{},
 	)
 	if err != nil {
 		global.GV_LOG.Error("register table failed")

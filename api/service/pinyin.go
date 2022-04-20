@@ -51,13 +51,17 @@ func (pinyinService *PinyinService) PinyinsByInitalAndFinal(inital string, final
 	err = db.Raw(`
 		with inital as (
 			select i.id,
-				i.name
+				   i.name
 			from initials i
-			where i.name = ?
+			where i.id = ?
+			--or 
+			--where i.name = ?
 		), final as (
 			select f.id
 			from finals f
-			where f.name = ?
+			where f.id = ?
+			--or 
+			--where f.name = ?
 		)
 		select  pn.id 												 as pinyin_id,
 				concat((select name from inital),ft.name) 			 as pinyin,
@@ -69,6 +73,73 @@ func (pinyinService *PinyinService) PinyinsByInitalAndFinal(inital string, final
 		where pn.final_tone_id = ft.id
 		and pn.initial_id = (select id from inital);
 	`, inital, final).Scan(&data).Error
+
+	return err, data
+}
+
+func (pinyinService *PinyinService) ByTone(tone string) (err error, model []response.Pinyin) {
+	var data []response.Pinyin
+	db := global.GV_DB.Model(&models.Pinyin{})
+
+	err = db.Raw(`
+		select  p.id 											as id,
+				concat((SELECT name
+						FROM initials i
+						WHERE i.id = p.initial_id ), ft.name)   as pinyin,
+				p.initial_id 									as initial_id,
+				ft.final_id 									as final_id,
+				p.final_tone_id 								as final_tone_id,
+				ft.tone											as tone,
+				f.pos											as final_pos,
+				i.pos											as initial_pos
+		from pinyin p 
+		join finals_tone ft on ft.id = p.final_tone_id
+		join finals 	 f	on f.id  = ft.final_id
+		join initials 	 i	on i.id  = p.initial_id
+		where ft.tone = ?;
+	`, tone).Scan(&data).Error
+
+	return err, data
+}
+
+func (pinyinService *PinyinService) Full() (err error, model []response.Pinyin) {
+	var data []response.Pinyin
+	db := global.GV_DB.Model(&models.Pinyin{})
+
+	err = db.Raw(`
+		select  p.id 											as id,
+				concat((SELECT name
+						FROM initials i
+						WHERE i.id = p.initial_id ), ft.name)   as pinyin,
+				p.initial_id 									as initial_id,
+				ft.final_id 									as final_id,
+				p.final_tone_id 								as final_tone_id,
+				ft.tone											as tone,
+				f.pos											as final_pos,
+				i.pos											as initial_pos
+		from pinyin p 
+		join finals_tone ft on ft.id = p.final_tone_id
+		join finals 	 f	on f.id  = ft.final_id
+		join initials 	 i	on i.id  = p.initial_id;
+	`).Scan(&data).Error
+
+	return err, data
+}
+
+func (pinyinService *PinyinService) Initials() (err error, model []models.Initial) {
+	var data []models.Initial
+	db := global.GV_DB.Model(&models.Initial{})
+
+	err = db.Find(&data).Error
+
+	return err, data
+}
+
+func (pinyinService *PinyinService) Finals() (err error, model []models.Final) {
+	var data []models.Final
+	db := global.GV_DB.Model(&models.Final{})
+
+	err = db.Find(&data).Error
 
 	return err, data
 }

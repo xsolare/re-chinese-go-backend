@@ -16,16 +16,54 @@ type HieroglyphController struct {
 /// 																	///
 
 /*
+ * GetById
+ * @Accept application/json
+ * @Produce application/json
+ * @Param data body {id} true "..."
+ * @Success 200 {object} response.Response{data=map[string]interface{},msg=string} "..."
+ * @Router /hieroglyph/:id [get]
+ */
+func (r *HieroglyphController) GetById(c *gin.Context) {
+	id := c.Param("id")
+	err, hc := hieroglyphService.ById(id)
+
+	if err != nil {
+		global.GV_LOG.Error("Nope!")
+	} else {
+		c.JSON(http.StatusOK, hc)
+	}
+}
+
+/*
  * GetByName
  * @Accept application/json
  * @Produce application/json
  * @Param data body {name} true "..."
  * @Success 200 {object} response.Response{data=map[string]interface{},msg=string} "..."
- * @Router /hieroglyph/:name [get]
+ * @Router /hieroglyph/name/:name [get]
  */
 func (r *HieroglyphController) GetByName(c *gin.Context) {
 	name := c.Param("name")
 	err, hc := hieroglyphService.ByName(name)
+
+	if err != nil {
+		global.GV_LOG.Error("Nope!")
+	} else {
+		c.JSON(http.StatusOK, hc)
+	}
+}
+
+/*
+ * GetByPinyin
+ * @Accept application/json
+ * @Produce application/json
+ * @Param data body {pinyin} true "..."
+ * @Success 200 {object} response.Response{data=map[string]interface{},msg=string} "..."
+ * @Router /hieroglyph/pinyin/:name [get]
+ */
+func (r *HieroglyphController) GetByPinyin(c *gin.Context) {
+	pinyin := c.Param("pinyin")
+	err, hc := hieroglyphService.ByPinyin(pinyin)
 
 	if err != nil {
 		global.GV_LOG.Error("Nope!")
