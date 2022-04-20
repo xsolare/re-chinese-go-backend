@@ -8,4 +8,5 @@ type ServiceGroup struct {
 	WordService
 	PinyinService
 	HieroglyphService
+	OperationRecordService
 }
