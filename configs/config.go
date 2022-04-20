@@ -15,5 +15,6 @@ func (p *Pgsql) Dsn() string {
 }
 
 type Server struct {
-	Pgsql Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
+	Pgsql     Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
+	JwtSecret string
 }

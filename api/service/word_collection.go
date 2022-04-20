@@ -15,11 +15,12 @@ func (wordCollectionService *WordCollectionService) CollectionById(id string) (e
 	db := global.GV_DB.Model(&models.WordCollection{})
 
 	err = db.Raw(`
-		select  w.id 				as word_id,
-				w.name				as name,
+		select  w.id 				as id,
+				w.name				as hieroglyphics,
 				w.pinyin			as pinyin,
 				w.part_of_speech_id as part_of_speech_id,
-				wt.translate		as translate 
+				wt.translate		as translate,
+				w.hsk				as hsk
 		from words_in_collections wic
 		join words w on w.id = wic.word_id
 		left join words_translates wt on wt.word_id = w.id

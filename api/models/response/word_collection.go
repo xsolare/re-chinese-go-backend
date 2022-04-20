@@ -1,9 +1,10 @@
 package response
 
 type WordCollection struct {
-	WordId         uint   `json:"word_id"`
-	Name           string `json:"name"`
+	Id             uint   `json:"id"`
+	Hieroglyphics  string `json:"hieroglyphics"`
 	Pinyin         string `json:"pinyin"`
-	PartOfSpeechId uint   `json:"part_of_speech_id"`
+	PartOfSpeechId uint   `json:"partOfSpeechId"`
 	Translate      string `json:"translate"`
+	Hsk            uint   `json:"hsk"`
 }
