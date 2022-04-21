@@ -15,7 +15,7 @@ func main() {
 	//?		Init model / Run migration		?//
 	// initialize.ResetSchema(global.GV_DB)
 	// initialize.RegisterTables(global.GV_DB)
-	// initialize.RunMigration(global.GV_DB)
+	// initialize.RunMigration(global.GV_DB
 
 	//?		Gin routes and run server 		?//
 	r := initialize.NewRoutes()

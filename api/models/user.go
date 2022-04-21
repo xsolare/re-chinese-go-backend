@@ -8,10 +8,10 @@ import (
 )
 
 type User struct {
-	Id                   uint                   `gorm:"primaryKey;autoIncrement"`
-	Username             string                 `gorm:"type:varchar(32);unique;not null"`
-	Password             string                 `gorm:"type:varchar(64);not null"`
-	Salt                 string                 `gorm:"type:varchar(255)"`
+	Id                   uint                   `gorm:"primaryKey;autoIncrement" json:"id"`
+	Username             string                 `gorm:"type:varchar(32);unique;not null" json:"userName"`
+	Password             string                 `gorm:"type:varchar(64);not null" json:"password"`
+	Salt                 string                 `gorm:"type:varchar(64);not null" json:"salt"`
 	Avatar               string                 ``
 	CreatedAt            time.Time              `gorm:"autoCreateTime"`
 	UpdatedAt            time.Time              `gorm:"autoCreateTime"`
