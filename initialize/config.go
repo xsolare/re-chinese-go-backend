@@ -22,5 +22,7 @@ func Config() {
 	g.GV_CONFIG.Pgsql.MaxIdleConns = 8
 	g.GV_CONFIG.Pgsql.MaxOpenConns = 8
 
-	g.GV_CONFIG.JwtSecret = os.Getenv("JWT_SECRET")
+	g.GV_CONFIG.JWT.SecretKey = os.Getenv("JWT_SECRET")
+	g.GV_CONFIG.JWT.ExpiresTime = 10 * 24 * 60 * 60
+	g.GV_CONFIG.JWT.BufferTime = 10 * 24 * 60 * 60
 }

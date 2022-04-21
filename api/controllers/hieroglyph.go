@@ -5,12 +5,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/xsolare/re-chinese-go-backend/api/models/dto"
-	"github.com/xsolare/re-chinese-go-backend/api/sdk"
 	"github.com/xsolare/re-chinese-go-backend/global"
 )
 
 type HieroglyphController struct {
-	sdk.Api
 }
 
 /// 																	///

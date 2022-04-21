@@ -15,4 +15,7 @@ func (r *UserRouter) InitUserRouter(rg *gin.RouterGroup) {
 	api := new(controllers.UserController)
 
 	userRouter.GET("/", api.GetAll)
+	userRouter.POST("/sign-in", api.SignIn)
+	userRouter.POST("/sign-up", api.SignUp)
+	userRouter.Use(middleware.Auth()).POST("/auth", api.Auth)
 }
