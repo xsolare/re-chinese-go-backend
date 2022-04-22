@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 	"github.com/xsolare/re-chinese-go-backend/api/models"
 	"github.com/xsolare/re-chinese-go-backend/api/service"
 	"github.com/xsolare/re-chinese-go-backend/global"
+	"github.com/xsolare/re-chinese-go-backend/utils/jwtauth"
 )
 
 var operationRecordService = service.OperationRecordService{}
@@ -21,7 +23,7 @@ func OperationRecord() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		var body []byte
-		// var userId int //TODO
+		var userId uint
 
 		if c.Request.Method != http.MethodGet {
 			var err error
@@ -44,24 +46,25 @@ func OperationRecord() gin.HandlerFunc {
 			}
 			body, _ = json.Marshal(&m)
 		}
-		//TODO
-		// claims := jwtauth.ExtractClaims(c)
-		// if claims["UserId"] != 0 {
-		// 	userId = int(claims.ID)
-		// } else {
-		// 	id, err := strconv.Atoi(c.Request.Header.Get("x-user-id"))
-		// 	if err != nil {
-		// 		userId = 0
-		// 	}
-		// 	userId = id
-		// }
+
+		claims, err := jwtauth.GetClaims(c)
+		if err != nil {
+			id, err := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+			if err != nil {
+				userId = 0
+			}
+			userId = uint(id)
+		} else if claims.ID != 0 {
+			userId = uint(claims.ID)
+		}
+
 		record := models.OperationRecord{
 			Ip:     c.ClientIP(),
 			Method: c.Request.Method,
 			Path:   c.Request.URL.Path,
 			Agent:  c.Request.UserAgent(),
 			Body:   string(body),
-			// UserID: userId, //TODO
+			UserId: userId,
 		}
 
 		if strings.Index(c.GetHeader("Content-Type"), "multipart/form-data") > -1 {

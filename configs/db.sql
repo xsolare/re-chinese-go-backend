@@ -4,8 +4,8 @@ INSERT INTO roles(id,name) VALUES
     (2,'premium'),
     (3,'staff');
 
-INSERT INTO users(id,username,password,created_at,updated_at,last_login) VALUES 
-    (1, 'evai','123321',(select now()),(select now()),(select now()));
+INSERT INTO users(id,username,password,salt,created_at,updated_at,last_login) VALUES 
+    (1, 'evai','123321','456654',(select now()),(select now()),(select now()));
 
 INSERT INTO users_roles(user_id,role_id) VALUES 
     (1,1);

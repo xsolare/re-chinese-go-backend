@@ -1,30 +1,28 @@
 package middleware
 
 import (
-	"time"
-
-	handler "github.com/xsolare/re-chinese-go-backend/api/middleware/handler"
-	g "github.com/xsolare/re-chinese-go-backend/global"
-	jwt "github.com/xsolare/re-chinese-go-backend/utils/jwtauth"
+	"github.com/gin-gonic/gin"
+	"github.com/xsolare/re-chinese-go-backend/utils/jwtauth"
+	"github.com/xsolare/re-chinese-go-backend/utils/response"
 )
 
-//? Auth
-func Auth() (*jwt.GinJWTMiddleware, error) {
-	timeout := time.Hour
+//? JWTAuth Auth
+func Auth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		claims, err := jwtauth.GetClaims(c)
 
-	return jwt.New(&jwt.GinJWTMiddleware{
-		Realm:       "test zone",
-		Key:         []byte(g.GV_CONFIG.JwtSecret),
-		Timeout:     timeout,
-		MaxRefresh:  time.Hour,
-		PayloadFunc: handler.PayloadFunc,
-		// IdentityHandler: handler.IdentityHandler,
-		// Authenticator:   handler.Authenticator,
-		// Authorizator:    handler.Authorizator,
-		// Unauthorized:    handler.Unauthorized,
-		TokenLookup:   "header: Authorization, query: token, cookie: jwt",
-		TokenHeadName: "Bearer",
-		TimeFunc:      time.Now,
-	})
+		if err != nil {
+			if err == jwtauth.TokenExpired {
+				response.FailWithDetailed(gin.H{"reload": true}, "TokenExpired", c)
+				c.Abort()
+				return
+			}
+			response.FailWithDetailed(gin.H{"reload": true}, err.Error(), c)
+			c.Abort()
+			return
+		}
 
+		c.Set("claims", claims)
+		c.Next()
+	}
 }

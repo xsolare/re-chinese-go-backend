@@ -56,3 +56,21 @@ func GenerateMsgIDFromContext(c *gin.Context) string {
 	}
 	return requestId
 }
+
+func Map[T, U any](ts []T, f func(T) U) []U {
+	us := make([]U, len(ts))
+	for i := range ts {
+		us[i] = f(ts[i])
+	}
+	return us
+}
+
+func Сontains[T int | string](arr []T, el T) bool {
+	for _, v := range arr {
+		if v == el {
+			return true
+		}
+	}
+
+	return false
+}

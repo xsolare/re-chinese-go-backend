@@ -1,10 +1,8 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	"github.com/xsolare/re-chinese-go-backend/global"
+	"github.com/xsolare/re-chinese-go-backend/utils/response"
 )
 
 type PinyinController struct{}
@@ -15,53 +13,59 @@ func (r *PinyinController) GetByInitalAndFinal(c *gin.Context) {
 	inital := c.Query("inital")
 	final := c.Query("final")
 
-	err, words := pinyinService.PinyinsByInitalAndFinal(inital, final)
+	err, data := pinyinService.PinyinsByInitalAndFinal(inital, final)
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, words)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 func (r *PinyinController) GetByTone(c *gin.Context) {
 	tone := c.Param("tone")
 
-	err, pinyins := pinyinService.ByTone(tone)
+	err, data := pinyinService.ByTone(tone)
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, pinyins)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 func (r *PinyinController) GetPinyin(c *gin.Context) {
-	err, pinyins := pinyinService.Full()
+	err, data := pinyinService.Full()
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, pinyins)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 func (r *PinyinController) GetFinals(c *gin.Context) {
-	err, finals := pinyinService.Finals()
+	err, data := pinyinService.Finals()
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, finals)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 func (r *PinyinController) GetInitials(c *gin.Context) {
-	err, initials := pinyinService.Initials()
+	err, data := pinyinService.Initials()
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, initials)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
+
 }
