@@ -14,8 +14,8 @@ type OperationRecord struct {
 	ErrorMessage string        `json:"error_message" form:"error_message" gorm:"column:error_message;"`
 	Body         string        `json:"body" form:"body" gorm:"type:text;column:body;"`
 	Resp         string        `json:"resp" form:"resp" gorm:"type:text;column:resp;"`
-	UserID       int           `json:"user_id" form:"user_id" gorm:"column:user_id;default:NULL;"`
-	User         User          `json:"user"`
+	UserId       uint          `json:"userId" gorm:"column:user_id;default:NULL;"`
+	User         User          `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 
 func (s *OperationRecord) TableName() string {

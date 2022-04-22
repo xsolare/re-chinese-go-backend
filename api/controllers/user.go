@@ -1,12 +1,9 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/xsolare/re-chinese-go-backend/api/models/dto"
 	res "github.com/xsolare/re-chinese-go-backend/api/models/response"
-	"github.com/xsolare/re-chinese-go-backend/global"
 	utils "github.com/xsolare/re-chinese-go-backend/utils"
 	"github.com/xsolare/re-chinese-go-backend/utils/jwtauth"
 	"github.com/xsolare/re-chinese-go-backend/utils/jwtauth/jwtuser"
@@ -21,10 +18,11 @@ func (r *UserController) GetAll(c *gin.Context) {
 	err, users := userService.Users()
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, users)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(users, c)
 }
 
 func (r *UserController) SignUp(c *gin.Context) {
@@ -32,15 +30,14 @@ func (r *UserController) SignUp(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 
 	if err := utils.Verify(req, utils.SignUpVerify); err != nil {
-		global.GV_LOG.Error("Invalid data dto ", err)
-		c.JSON(http.StatusBadRequest, err)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	err, user := userService.SignUp(req)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
@@ -51,8 +48,7 @@ func (r *UserController) SignUp(c *gin.Context) {
 	})
 	token, err := j.CreateToken(claims)
 	if err != nil {
-		global.GV_LOG.Error("Fail token create!", err)
-		c.JSON(http.StatusBadRequest, err)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
@@ -67,14 +63,13 @@ func (r *UserController) SignIn(c *gin.Context) {
 	_ = c.ShouldBindJSON(&req)
 
 	if err := utils.Verify(req, utils.SignInVerify); err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	err, users := userService.SignIn(req)
 
 	if err != nil {
-		global.GV_LOG.Error("Incorrect password!", err)
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -83,22 +78,12 @@ func (r *UserController) SignIn(c *gin.Context) {
 }
 
 func (r *UserController) Auth(c *gin.Context) {
-	//TODO Auth with token
-	// var req dto.SignIn
-	// _ = c.ShouldBindJSON(&req)
+	err, users := userService.UserById(jwtuser.GetUserId(c))
 
-	// if err := utils.Verify(r, utils.SignInVerify); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err)
-	// 	return
-	// }
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 
-	// err, users := userService.SignIn(req)
-
-	// if err != nil {
-	// 	global.GV_LOG.Error("Nope!")
-	// } else {
-	// 	c.JSON(http.StatusOK, users)
-	// }
-
-	c.JSON(http.StatusOK, jwtuser.GetUserID(c))
+	response.OkWithData(users, c)
 }
