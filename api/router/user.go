@@ -14,6 +14,8 @@ func (r *UserRouter) InitUserRouter(rg *gin.RouterGroup) {
 	userRouter := rg.Group("/user").Use(middleware.OperationRecord())
 	api := new(controllers.UserController)
 
+	// .Use(middleware.Role([]int{models.ADMIN, models.PREMIUM}))
+
 	userRouter.GET("/", api.GetAll)
 	userRouter.POST("/sign-in", api.SignIn)
 	userRouter.POST("/sign-up", api.SignUp)

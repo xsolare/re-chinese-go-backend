@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/xsolare/re-chinese-go-backend/api/models/dto"
-	"github.com/xsolare/re-chinese-go-backend/global"
+	"github.com/xsolare/re-chinese-go-backend/utils/response"
 )
 
 type HieroglyphController struct {
@@ -23,13 +21,14 @@ type HieroglyphController struct {
  */
 func (r *HieroglyphController) GetById(c *gin.Context) {
 	id := c.Param("id")
-	err, hc := hieroglyphService.ById(id)
+	err, data := hieroglyphService.ById(id)
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, hc)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 /*
@@ -42,13 +41,14 @@ func (r *HieroglyphController) GetById(c *gin.Context) {
  */
 func (r *HieroglyphController) GetByName(c *gin.Context) {
 	name := c.Param("name")
-	err, hc := hieroglyphService.ByName(name)
+	err, data := hieroglyphService.ByName(name)
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, hc)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 /*
@@ -61,13 +61,14 @@ func (r *HieroglyphController) GetByName(c *gin.Context) {
  */
 func (r *HieroglyphController) GetByPinyin(c *gin.Context) {
 	pinyin := c.Param("pinyin")
-	err, hc := hieroglyphService.ByPinyin(pinyin)
+	err, data := hieroglyphService.ByPinyin(pinyin)
 
 	if err != nil {
-		global.GV_LOG.Error("Nope!")
-	} else {
-		c.JSON(http.StatusOK, hc)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 /*
@@ -85,10 +86,11 @@ func (r *HieroglyphController) NewHieroglyph(c *gin.Context) {
 	err, data := hieroglyphService.AddHieroglyph(&req)
 
 	if err != nil {
-		global.GV_LOG.Error("Error create Hieroglyph!")
-	} else {
-		c.JSON(http.StatusOK, data)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 /*
@@ -104,10 +106,11 @@ func (r *HieroglyphController) DeleteHieroglyph(c *gin.Context) {
 	err, data := hieroglyphService.DeleteHieroglyph(id)
 
 	if err != nil {
-		global.GV_LOG.Error("Error delete Hieroglyph!")
-	} else {
-		c.JSON(http.StatusOK, data)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
+	response.OkWithData(data, c)
 }
 
 ///																											//

@@ -57,3 +57,28 @@ func (userService *UserService) SignIn(req dto.SignIn) (err error, model models.
 	}
 
 }
+
+func (userService *UserService) RoleById(id uint) (err error, model []models.Role) {
+	var user models.User
+	db := global.GV_DB.Model(&models.User{})
+
+	err = db.Preload("Roles").Where("id = ?", id).First(&user).Error
+
+	if err != nil {
+		return errors.New("Cannot found user"), model
+	}
+
+	return err, user.Roles
+}
+
+func (userService *UserService) UserById(id uint) (err error, model models.User) {
+	var user models.User
+
+	global.GV_LOG.Error("Incorrect password!", id)
+
+	db := global.GV_DB.Model(&models.User{})
+
+	err = db.Where("id = ?", id).First(&user).Error
+
+	return err, user
+}

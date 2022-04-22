@@ -9,9 +9,7 @@ import (
 //? JWTAuth Auth
 func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := c.Request.Header.Get("x-token")
-		j := jwtauth.NewJWT()
-		claims, err := j.ParseToken(token)
+		claims, err := jwtauth.GetClaims(c)
 
 		if err != nil {
 			if err == jwtauth.TokenExpired {
