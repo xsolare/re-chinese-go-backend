@@ -67,23 +67,51 @@ func (r *UserController) SignIn(c *gin.Context) {
 		return
 	}
 
-	err, users := userService.SignIn(req)
+	err, user := userService.SignIn(req)
 
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	response.OkWithData(users, c)
+	j := jwtauth.NewJWT()
+	claims := j.CreateClaims(jwtauth.BaseClaims{
+		ID:       user.Id,
+		Username: user.Username,
+	})
+	token, err := j.CreateToken(claims)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithData(res.UserJwt{
+		User: user,
+		Jwt:  token,
+	}, c)
 }
 
 func (r *UserController) Auth(c *gin.Context) {
-	err, users := userService.UserById(jwtuser.GetUserId(c))
+	err, user := userService.Auth(jwtuser.GetUserId(c))
 
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	response.OkWithData(users, c)
+	j := jwtauth.NewJWT()
+	claims := j.CreateClaims(jwtauth.BaseClaims{
+		ID:       user.Id,
+		Username: user.Username,
+	})
+	token, err := j.CreateToken(claims)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithData(res.UserJwt{
+		User: user,
+		Jwt:  token,
+	}, c)
 }
