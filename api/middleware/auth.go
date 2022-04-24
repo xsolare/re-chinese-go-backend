@@ -9,6 +9,7 @@ import (
 //? JWTAuth Auth
 func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		// global.GV_LOG.Warn("HEADERS |", c.Request.Header)
 		claims, err := jwtauth.GetClaims(c)
 
 		if err != nil {

@@ -8,16 +8,16 @@ import (
 )
 
 type User struct {
-	Id                   uint                   `gorm:"primaryKey;autoIncrement" json:"id"`
-	Username             string                 `gorm:"type:varchar(32);unique;not null" json:"userName"`
-	Password             string                 `gorm:"type:varchar(64);not null" json:"password"`
-	Salt                 string                 `gorm:"type:varchar(64);not null" json:"salt"`
-	Avatar               string                 ``
-	CreatedAt            time.Time              `gorm:"autoCreateTime"`
-	UpdatedAt            time.Time              `gorm:"autoCreateTime"`
-	LastLogin            time.Time              `gorm:"autoCreateTime"`
-	Roles                []Role                 `gorm:"many2many:users_roles;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
-	HieroglyphCollection []HieroglyphCollection `gorm:"foreignKey:AuthorId;references:Id"`
+	Id                   uint                   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Username             string                 `json:"username" gorm:"type:varchar(32);unique;not null"`
+	Password             string                 `json:"password" gorm:"type:varchar(64);not null"`
+	Salt                 string                 `json:"salt" gorm:"type:varchar(64);not null"`
+	Avatar               string                 `json:"avatar"`
+	UpdatedAt            time.Time              `json:"updatedAt" gorm:"autoCreateTime"`
+	CreatedAt            time.Time              `json:"createdAt" gorm:"autoCreateTime"`
+	LastLogin            time.Time              `json:"lastLogin" gorm:"autoCreateTime"`
+	Roles                []Role                 `json:"roles" gorm:"many2many:users_roles;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	HieroglyphCollection []HieroglyphCollection `json:"hieroglyphCollection" gorm:"foreignKey:AuthorId;references:Id"`
 }
 
 func (m *User) AfterCreate(db *gorm.DB) error {
@@ -27,6 +27,10 @@ func (m *User) AfterCreate(db *gorm.DB) error {
 }
 
 func (m *User) BeforeUpdate(db *gorm.DB) error {
+	if db.Statement.Changed("LastLogin") {
+		return nil
+	}
+
 	m.UpdatedAt = time.Now().Local()
 	return nil
 }
