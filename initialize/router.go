@@ -23,7 +23,7 @@ func NewRoutes() Routes {
 	r.router.Use(middleware.Cors())
 	// r.router.Use(middleware.CorsByRules())
 
-	api := r.router.Group("/api")
+	api := r.router.Group("/api/")
 
 	routes := new(router.RouterGroup)
 

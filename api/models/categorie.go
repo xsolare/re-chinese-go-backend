@@ -1,8 +1,8 @@
 package models
 
 type Categorie struct {
-	Id                   uint                   `gorm:"primaryKey;autoIncrement" 						json:"id"`
-	Name                 string                 `gorm:"type:varchar(32);unique;not null" 				json:"name"`
+	Id                   uint                   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name                 string                 `json:"name" gorm:"type:varchar(32);unique;not null"`
 	HieroglyphCollection []HieroglyphCollection `gorm:"foreignKey:CategorieId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 

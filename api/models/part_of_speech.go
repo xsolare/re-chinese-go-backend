@@ -1,8 +1,8 @@
 package models
 
 type PartOfSpeech struct {
-	Id         uint   `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Name       string `gorm:"type:varchar(32);unique;not null" 	json:"name"`
+	Id         uint   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name       string `json:"name" gorm:"type:varchar(32);unique;not null"`
 	Word       Word
 	Hieroglyph Hieroglyph
 }

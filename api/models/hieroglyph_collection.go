@@ -1,10 +1,10 @@
 package models
 
 type HieroglyphCollection struct {
-	Id                        uint         `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Name                      string       `gorm:"type:varchar(50);unique;not null" 	json:"name"`
-	Description               string       `gorm:"type:varchar(180)" 				json:"description"`
-	Hsk                       uint8        `gorm:"type:smallint;default:1"			json:"hsk"`
+	Id                        uint         `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name                      string       `json:"name" gorm:"type:varchar(50);unique;not null"`
+	Description               string       `json:"description" gorm:"type:varchar(180)"`
+	Hsk                       uint8        `json:"hsk" gorm:"type:smallint;default:1"`
 	AuthorId                  uint         `json:"author_id"`
 	CategorieId               uint         `json:"categorie_id"`
 	HieroglyphicInCollections []Hieroglyph `gorm:"many2many:hierogplyphic_in_collections;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
