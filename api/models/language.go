@@ -1,9 +1,9 @@
 package models
 
 type Language struct {
-	Id        uint   `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Name      string `gorm:"type:varchar(32);unique;not null" 	json:"name"`
-	ShortName string `gorm:"type:varchar(16);unique;not null" 	json:"short_name"`
+	Id        uint   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name      string `json:"name" gorm:"type:varchar(32);unique;not null"`
+	ShortName string `json:"shortName" gorm:"type:varchar(16);unique;not null"`
 }
 
 func (s *Language) TableName() string {

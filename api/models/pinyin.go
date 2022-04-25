@@ -1,10 +1,10 @@
 package models
 
 type Pinyin struct {
-	Id          uint      `gorm:"primaryKey;autoIncrement" json:"id"`
-	InitialId   uint      `json:"inital_id"`
+	Id          uint      `json:"id" gorm:"primaryKey;autoIncrement"`
+	InitialId   uint      `json:"initalId"`
 	Initial     Initial   `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
-	FinalToneId uint      `gorm:"not null" json:"final_tone_id"`
+	FinalToneId uint      `json:"finalToneId" gorm:"not null"`
 	FinalTone   FinalTone `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 

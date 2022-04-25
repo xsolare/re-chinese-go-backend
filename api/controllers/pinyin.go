@@ -37,6 +37,7 @@ func (r *PinyinController) GetByTone(c *gin.Context) {
 }
 
 func (r *PinyinController) GetPinyin(c *gin.Context) {
+
 	err, data := pinyinService.Full()
 
 	if err != nil {

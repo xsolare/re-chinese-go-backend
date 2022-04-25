@@ -3,10 +3,10 @@ package response
 type Pinyin struct {
 	Id          uint   `json:"id"`
 	Pinyin      string `json:"pinyin"`
-	InitialId   uint   `json:"initial_id"`
-	FinalId     uint   `json:"final_id"`
-	FinalToneId uint   `json:"final_tone_id"`
+	InitialId   uint   `json:"initialId"`
+	FinalId     uint   `json:"finalId"`
+	FinalToneId uint   `json:"finalToneId"`
 	Tone        string `json:"tone"`
-	InitialPos  uint   `json:"initial_pos"`
-	FinalPos    uint   `json:"final_pos"`
+	InitialPos  uint   `json:"initialPos"`
+	FinalPos    uint   `json:"finalPos"`
 }

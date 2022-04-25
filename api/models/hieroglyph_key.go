@@ -1,8 +1,8 @@
 package models
 
 type HieroglyphKey struct {
-	Id           uint       `gorm:"primaryKey;autoIncrement" json:"id"`
-	HieroglyphId uint       `gorm:"not null" json:"hieroglyph_id"`
+	Id           uint       `json:"id" gorm:"primaryKey;autoIncrement"`
+	HieroglyphId uint       `json:"hieroglyph_id" gorm:"not null"`
 	Hieroglyph   Hieroglyph `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 
