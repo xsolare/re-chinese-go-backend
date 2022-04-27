@@ -10,10 +10,10 @@ package models
 //? )
 
 type FinalTone struct {
-	Id      uint   `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Name    string `gorm:"type:varchar(8);not null" 		json:"name"`
-	Tone    uint   `gorm:"type:smallint;default:1" 			json:"tone"`
-	FinalId uint   `json:"final_id"`
+	Id      uint   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name    string `json:"name" gorm:"type:varchar(8);not null"`
+	Tone    uint   `json:"tone" gorm:"type:smallint;default:1"`
+	FinalId uint   `json:"finalId"`
 	Final   Final  `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	//? Tone    ToneType `sql:"type:tone_type" 				json:"tone"`
 }

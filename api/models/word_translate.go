@@ -1,13 +1,13 @@
 package models
 
 type WordTranslate struct {
-	Id          uint     `gorm:"primaryKey;autoIncrement"			json:"id"`
-	Translate   string   `gorm:"type:varchar(8);unique;not null" 	json:"translate"`
+	Id          uint     `json:"id" gorm:"primaryKey;autoIncrement"`
+	Translate   string   `json:"translate" gorm:"type:varchar(8);unique;not null"`
 	Priority    uint8    `json:"priority"`
-	Description string   `gorm:"type:text" 							json:"description"`
-	WordId      uint     `gorm:"not null" 							json:"word_id"`
+	Description string   `json:"description" gorm:"type:text"`
+	WordId      uint     `json:"wordId" gorm:"not null"`
 	Word        Word     `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
-	LanguageId  uint     `gorm:"not null"							json:"language_id"`
+	LanguageId  uint     `json:"languageId" gorm:"not null"					`
 	Language    Language `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 

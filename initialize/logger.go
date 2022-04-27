@@ -9,6 +9,6 @@ import (
 func Logger() *logrus.Logger {
 	logger := logrus.New()
 	logger.SetOutput(os.Stdout)
-	logger.SetFormatter(&logrus.JSONFormatter{})
+	// logger.SetFormatter(&logrus.JSONFormatter{})
 	return logger
 }

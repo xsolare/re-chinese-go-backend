@@ -12,13 +12,8 @@ type Response struct {
 	Msg  string      `json:"msg"`
 }
 
-const (
-	ERROR   = 7
-	SUCCESS = 0
-)
-
 func Result(code int, data interface{}, msg string, c *gin.Context) {
-	c.JSON(http.StatusOK, Response{
+	c.JSON(code, Response{
 		code,
 		data,
 		msg,
@@ -26,29 +21,29 @@ func Result(code int, data interface{}, msg string, c *gin.Context) {
 }
 
 func Ok(c *gin.Context) {
-	Result(SUCCESS, map[string]interface{}{}, "OK", c)
+	Result(http.StatusOK, map[string]interface{}{}, http.StatusText(http.StatusOK), c)
 }
 
 func OkWithMessage(message string, c *gin.Context) {
-	Result(SUCCESS, map[string]interface{}{}, message, c)
+	Result(http.StatusOK, map[string]interface{}{}, message, c)
 }
 
 func OkWithData(data interface{}, c *gin.Context) {
-	Result(SUCCESS, data, "OK", c)
+	Result(http.StatusOK, data, http.StatusText(http.StatusOK), c)
 }
 
 func OkWithDetailed(data interface{}, message string, c *gin.Context) {
-	Result(SUCCESS, data, message, c)
+	Result(http.StatusOK, data, message, c)
 }
 
 func Fail(c *gin.Context) {
-	Result(ERROR, map[string]interface{}{}, "Fail", c)
+	Result(http.StatusBadRequest, map[string]interface{}{}, http.StatusText(http.StatusBadRequest), c)
 }
 
 func FailWithMessage(message string, c *gin.Context) {
-	Result(ERROR, map[string]interface{}{}, message, c)
+	Result(http.StatusBadRequest, map[string]interface{}{}, message, c)
 }
 
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
-	Result(ERROR, data, message, c)
+	Result(http.StatusBadRequest, data, message, c)
 }

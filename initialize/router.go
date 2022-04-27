@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/xsolare/re-chinese-go-backend/api/middleware"
 	"github.com/xsolare/re-chinese-go-backend/api/router"
 )
 
@@ -15,7 +16,14 @@ func NewRoutes() Routes {
 		router: gin.Default(),
 	}
 
-	api := r.router.Group("/api")
+	//? Swagger
+	// r.router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	//? Cors
+	r.router.Use(middleware.Cors())
+	// r.router.Use(middleware.CorsByRules())
+
+	api := r.router.Group("/api/")
 
 	routes := new(router.RouterGroup)
 

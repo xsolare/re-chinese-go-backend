@@ -1,12 +1,12 @@
 package models
 
 type HieroglyphTranslate struct {
-	Id           uint       `gorm:"primaryKey;autoIncrement" json:"id"`
-	Translate    string     `gorm:"type:text;not null" json:"translate"`
+	Id           uint       `json:"id" gorm:"primaryKey;autoIncrement"`
+	Translate    string     `json:"translate" gorm:"type:text;not null"`
 	Priority     uint8      `json:"priority"`
-	HieroglyphId uint       `gorm:"not null" json:"hieroglyph_id"`
+	HieroglyphId uint       `json:"hieroglyphId" gorm:"not null"`
 	Hieroglyph   Hieroglyph `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
-	LanguageId   uint       `gorm:"not null" json:"language_id"`
+	LanguageId   uint       `json:"languageId" gorm:"not null"`
 	Language     Language   `gorm:"references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	// Description  string     `gorm:"type:text" 							json:"description"`
 }

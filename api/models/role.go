@@ -9,8 +9,8 @@ const (
 )
 
 type Role struct {
-	Id   int      `gorm:"primaryKey;autoIncrement" 	json:"id"`
-	Name RoleType `gorm:"type:role_type;unique" 	json:"name"`
+	Id   int      `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name RoleType `json:"name" gorm:"type:role_type;unique"`
 }
 
 func (s *Role) TableName() string {

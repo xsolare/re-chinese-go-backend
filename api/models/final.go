@@ -1,8 +1,8 @@
 package models
 
 type Final struct {
-	Id   uint   `gorm:"primaryKey;autoIncrement"		json:"id"`
-	Name string `gorm:"type:varchar(8);not null" json:"name"`
+	Id   uint   `json:"id" gorm:"primaryKey;autoIncrement"`
+	Name string `json:"name" gorm:"type:varchar(8);not null"`
 	Pos  uint8  `json:"pos"`
 }
 
