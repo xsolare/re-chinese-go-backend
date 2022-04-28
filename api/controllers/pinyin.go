@@ -1,7 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
+
 	"github.com/gin-gonic/gin"
+	res "github.com/xsolare/re-chinese-go-backend/api/models/response"
+	"github.com/xsolare/re-chinese-go-backend/global"
 	"github.com/xsolare/re-chinese-go-backend/utils/response"
 )
 
@@ -38,35 +42,67 @@ func (r *PinyinController) GetByTone(c *gin.Context) {
 
 func (r *PinyinController) GetPinyin(c *gin.Context) {
 
-	err, data := pinyinService.Full()
-
+	s_pinyin, err := global.GV_REDIS.Get("pinyin")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
+
+		err, data := pinyinService.Full()
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		redis_data, _ := json.Marshal(data)
+		global.GV_REDIS.Set("pinyin", string(redis_data), -1)
+		response.OkWithData(data, c)
 		return
 	}
 
-	response.OkWithData(data, c)
+	var pinyin []res.Pinyin
+	json.Unmarshal([]byte(s_pinyin), &pinyin)
+
+	response.OkWithData(pinyin, c)
 }
 
 func (r *PinyinController) GetFinals(c *gin.Context) {
-	err, data := pinyinService.Finals()
-
+	s_finals, err := global.GV_REDIS.Get("pinyin")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
+
+		err, data := pinyinService.Finals()
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		redis_data, _ := json.Marshal(data)
+		global.GV_REDIS.Set("finals", string(redis_data), -1)
+		response.OkWithData(data, c)
 		return
 	}
 
-	response.OkWithData(data, c)
+	var finals []res.Pinyin
+	json.Unmarshal([]byte(s_finals), &finals)
+
+	response.OkWithData(finals, c)
 }
 
 func (r *PinyinController) GetInitials(c *gin.Context) {
-	err, data := pinyinService.Initials()
-
+	s_initials, err := global.GV_REDIS.Get("pinyin")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
+
+		err, data := pinyinService.Initials()
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		redis_data, _ := json.Marshal(data)
+		global.GV_REDIS.Set("initials", string(redis_data), -1)
+		response.OkWithData(data, c)
 		return
 	}
 
-	response.OkWithData(data, c)
+	var initials []res.Pinyin
+	json.Unmarshal([]byte(s_initials), &initials)
 
+	response.OkWithData(initials, c)
 }
