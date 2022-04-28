@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/xsolare/re-chinese-go-backend/api/models/dto"
 	res "github.com/xsolare/re-chinese-go-backend/api/models/response"
@@ -61,6 +63,8 @@ func (r *UserController) SignUp(c *gin.Context) {
 func (r *UserController) SignIn(c *gin.Context) {
 	var req dto.SignIn
 	_ = c.ShouldBindJSON(&req)
+	fmt.Printf("P - " + req.Password)
+	fmt.Printf("U - " + req.Username)
 
 	if err := utils.Verify(req, utils.SignInVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
