@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/xsolare/re-chinese-go-backend/global"
 	"github.com/xsolare/re-chinese-go-backend/initialize"
 )
 
@@ -9,8 +8,9 @@ func main() {
 	initialize.Config()
 
 	//?		Init global variables			?//
-	global.GV_LOG = initialize.Logger()
-	global.GV_DB = initialize.Gorm()
+	initialize.Logger()
+	initialize.Gorm()
+	initialize.Redis()
 
 	//?		Init model / Run migration		?//
 	// initialize.ResetSchema(global.GV_DB)

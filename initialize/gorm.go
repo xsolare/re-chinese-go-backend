@@ -1,30 +1,37 @@
 package initialize
 
 import (
+	"errors"
+	"fmt"
 	"os"
 
 	"github.com/xsolare/re-chinese-go-backend/api/models"
 	"github.com/xsolare/re-chinese-go-backend/global"
+	"github.com/xsolare/re-chinese-go-backend/utils"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func Gorm() *gorm.DB {
+func Gorm() error {
 	p := global.GV_CONFIG.Pgsql
 	if p.Dbname == "" {
-		return nil
+		return errors.New("empty Dbname")
 	}
 	pgsqlConfig := postgres.Config{
 		DSN:                  p.Dsn(),
 		PreferSimpleProtocol: false,
 	}
 	if db, err := gorm.Open(postgres.New(pgsqlConfig)); err != nil {
-		return nil
+		return err
 	} else {
 		sqlDB, _ := db.DB()
 		sqlDB.SetMaxIdleConns(p.MaxIdleConns)
 		sqlDB.SetMaxOpenConns(p.MaxOpenConns)
-		return db
+
+		global.GV_DB = db
+		fmt.Printf(utils.Cyan("- Gorm -"))
+
+		return nil
 	}
 }
 
