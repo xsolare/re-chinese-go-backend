@@ -72,14 +72,14 @@ func (r *HieroglyphController) GetByPinyin(c *gin.Context) {
 }
 
 /*
- * NewHieroglyph
+ * Add
  * @Accept application/json
  * @Produce application/json
  * @Param data body request.Hieroglyph true "..."
  * @Success 200 {object} response.Response{data=map[string]interface{},msg=string} "..."
  * @Router /hieroglyph/ [post]
  */
-func (r *HieroglyphController) NewHieroglyph(c *gin.Context) {
+func (r *HieroglyphController) Add(c *gin.Context) {
 	var req dto.Hieroglyph
 	c.ShouldBindJSON(&req)
 

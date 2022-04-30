@@ -18,11 +18,11 @@ func (r *HieroglyphRouter) InitHieroglyphRouter(rg *gin.RouterGroup) {
 	hieroglyphRouter.GET("/:id", api.GetById)
 	hieroglyphRouter.
 		Use(middleware.Auth()).
-		Use(middleware.Role([]int{models.ADMIN})).
-		POST("/", api.NewHieroglyph)
+		Use(middleware.Role([]int{models.ADMIN_ID})).
+		POST("/", api.Add)
 
 	hieroglyphRouter.
 		Use(middleware.Auth()).
-		Use(middleware.Role([]int{models.ADMIN})).
+		Use(middleware.Role([]int{models.ADMIN_ID})).
 		DELETE("/:id", api.DeleteHieroglyph)
 }

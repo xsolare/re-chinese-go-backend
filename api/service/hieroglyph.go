@@ -40,14 +40,12 @@ func (hieroglyphService *HieroglyphService) ByPinyin(pinyin string) (err error, 
 	return err, data
 }
 
-func (hieroglyphService *HieroglyphService) AddHieroglyph(c *dto.Hieroglyph) (err error, model models.Hieroglyph) {
+func (hieroglyphService *HieroglyphService) AddHieroglyph(req *dto.Hieroglyph) (err error, model models.Hieroglyph) {
 	var data models.Hieroglyph
 
-	db := global.GV_DB.Model(&models.Hieroglyph{})
+	req.Generate(&data)
 
-	c.Generate(&data)
-
-	err = db.Omit("id").Create(&data).Error
+	err = global.GV_DB.Model(&models.Hieroglyph{}).Omit("id").Create(&data).Error
 
 	global.GV_LOG.Warn("ID - ", data.Id)
 

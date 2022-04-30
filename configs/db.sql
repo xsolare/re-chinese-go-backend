@@ -3,9 +3,11 @@ INSERT INTO roles(id,name) VALUES
     (1,'admin'),
     (2,'premium'),
     (3,'staff');
+    ALTER SEQUENCE roles_id_seq RESTART WITH 10;
 
 INSERT INTO users(id,username,password,salt,created_at,updated_at,last_login) VALUES 
-    (1, 'evai','123321','456654',(select now()),(select now()),(select now()));
+    (1, 'evai','c71e025be1f154f5ad72aa938e271e83b2cf167e6228f4eae3efa820de006b91','QDk.jEH_ptCQdNue',(select now()),(select now()),(select now()));
+    ALTER SEQUENCE users_id_seq RESTART WITH 10;
 
 INSERT INTO users_roles(user_id,role_id) VALUES 
     (1,1);
@@ -2438,71 +2440,73 @@ INSERT INTO pinyin (id, initial_id, final_tone_id) VALUES
 
 
 
-INSERT INTO hieroglyphic(id,hieroglyph,hsk,pinyin_id,part_of_speech_id) VALUES
-    (33,  '你', 1, 782 , 4),
-    (34,  '好', 1, 1183, 5),
-    (1,   '啊', 1, 69  , 1),
-    (2,   '爱', 1, 141 , 1),
-    (3,   '八', 1, 188 , 1),
-    (4,   '把', 1, 220 , 1),
-    (5,   '爸', 1, 204 , 1),
-    (6,   '吧', 1, 172 , 1),
-    (7,   '白', 1, 238 , 1),
-    (8,   '半', 1, 209 , 1),
-    (10,  '室', 1, 1751, 1),
-    (11,  '帮', 1, 195 , 1),
-    (12,  '助', 1, 1553, 1),
-    (13,  '被', 1, 207 , 1),
-    (14,  '本', 1, 226 , 1),
-    (15,  '比', 1, 235 , 1),
-    (16,  '较', 1, 1884, 1),
-    (17,  '赛', 1, 1448, 1),
-    (18,  '边', 1, 199 , 1),   
-    (19,  '便', 1, 215 , 1),   
-    (20,  '变', 1, 215 , 1),   
-    (21,  '表', 1, 229 , 1),   
-    (22,  '示', 1, 1751, 1),   
-    (23,  '别', 1, 246 , 1),   
-    (24,  '的', 1, 478 , 1),   
-    (25,  '人', 1, 1786, 1),   
-    (26,  '宾', 1, 200 , 1),   
-    (27,  '馆', 1, 1005, 1),   
-    (28,  '并', 1, 217 , 1),   
-    (29,  '病', 1, 217 , 1),   
-    (30,  '不', 1, 218 , 1),   
-    (31,  '错', 1, 1377, 1),   
-    (32,  '过', 1, 1021, 1); 
+INSERT INTO hieroglyphic(id,hieroglyph,hsk,pinyin_id) VALUES
+    (33,  '你', 1, 782 ),
+    (34,  '好', 1, 1183),
+    (1,   '啊', 1, 69  ),
+    (2,   '爱', 1, 141 ),
+    (3,   '八', 1, 188 ),
+    (4,   '把', 1, 220 ),
+    (5,   '爸', 1, 204 ),
+    (6,   '吧', 1, 172 ),
+    (7,   '白', 1, 238 ),
+    (8,   '半', 1, 209 ),
+    (10,  '室', 1, 1751),
+    (11,  '帮', 1, 195 ),
+    (12,  '助', 1, 1553),
+    (13,  '被', 1, 207 ),
+    (14,  '本', 1, 226 ),
+    (15,  '比', 1, 235 ),
+    (16,  '较', 1, 1884),
+    (17,  '赛', 1, 1448),
+    (18,  '边', 1, 199 ),   
+    (19,  '便', 1, 215 ),   
+    (20,  '变', 1, 215 ),   
+    (21,  '表', 1, 229 ),   
+    (22,  '示', 1, 1751),   
+    (23,  '别', 1, 246 ),   
+    (24,  '的', 1, 478 ),   
+    (25,  '人', 1, 1786),   
+    (26,  '宾', 1, 200 ),   
+    (27,  '馆', 1, 1005),   
+    (28,  '并', 1, 217 ),   
+    (29,  '病', 1, 217 ),   
+    (30,  '不', 1, 218 ),   
+    (31,  '错', 1, 1377),   
+    (32,  '过', 1, 1021); 
+    ALTER SEQUENCE hieroglyphic_id_seq RESTART WITH 100;
 
-INSERT INTO words(id,name,pinyin,hsk,part_of_speech_id) VALUES
-    (1,'好你','nǐhǎo',1,1),
-    (2,'啊','á',1,NULL),
-    (3,'爱','ài',1,NULL),
-    (4,'八','bā',1,NULL),
-    (5,'把','bǎ',1,NULL),
-    (6,'爸爸','bàba',1,NULL),
-    (7,'吧','ba',1,NULL),
-    (8,'白','bái',1,NULL),
-    (9,'半','bàn',1,NULL),
-    (10,'帮','bāng',1,NULL),
-    (11,'帮助','bāngzhù',1,NULL),
-    (12,'被','bèi',1,NULL),
-    (13,'本','běn',1,NULL),
-    (14,'比','bǐ',1,NULL),
-    (15,'比较','bǐjiào',1,NULL),
-    (16,'比赛','bǐsài',1,NULL),
-    (17,'边','biān',1,NULL),
-    (18,'便','biàn',1,NULL),
-    (19,'变','biàn',1,NULL),
-    (20,'表示','biǎoshì',1,NULL),
-    (21,'别','bié',1,NULL),
-    (22,'别的','biéde',1,NULL),
-    (23,'别人','biérén',1,NULL),
-    (24,'宾馆','bīnguǎn',1,NULL),
-    (25,'并','bìng',1,NULL),
-    (26,'病','bìng',1,NULL),
-    (27,'不','bù',1,NULL),
-    (28,'不错','bùcuò',1,NULL),
-    (29,'不过','bùguò',1,NULL);
+INSERT INTO words(id,name,pinyin,hsk,) VALUES
+    (1,'好你','nǐhǎo',1),
+    (2,'啊','á',1),
+    (3,'爱','ài',1),
+    (4,'八','bā',1),
+    (5,'把','bǎ',1),
+    (6,'爸爸','bàba',1),
+    (7,'吧','ba',1),
+    (8,'白','bái',1),
+    (9,'半','bàn',1),
+    (10,'帮','bāng',1),
+    (11,'帮助','bāngzhù',1),
+    (12,'被','bèi',1),
+    (13,'本','běn',1),
+    (14,'比','bǐ',1),
+    (15,'比较','bǐjiào',1),
+    (16,'比赛','bǐsài',1),
+    (17,'边','biān',1),
+    (18,'便','biàn',1),
+    (19,'变','biàn',1),
+    (20,'表示','biǎoshì',1),
+    (21,'别','bié',1),
+    (22,'别的','biéde',1),
+    (23,'别人','biérén',1),
+    (24,'宾馆','bīnguǎn',1),
+    (25,'并','bìng',1),
+    (26,'病','bìng',1),
+    (27,'不','bù',1),
+    (28,'不错','bùcuò',1),
+    (29,'不过','bùguò',1);
+    ALTER SEQUENCE words_id_seq RESTART WITH 100;
 
 INSERT INTO words_hieroglyphic(index,word_id,hieroglyph_id) VALUES
     (1, 1, 33), (2, 1, 34),
@@ -2537,6 +2541,7 @@ INSERT INTO words_hieroglyphic(index,word_id,hieroglyph_id) VALUES
 
 INSERT INTO words_collections(id,name,hsk,author_id,categorie_id) VALUES 
     (1,'HSK 1 most popular',1,1,NULL);
+    ALTER SEQUENCE words_collections_id_seq RESTART WITH 10;
 
 INSERT INTO words_in_collections(word_collection_id,word_id) VALUES 
     (1,1),

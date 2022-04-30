@@ -11,10 +11,8 @@ import (
 func Redis() error {
 	var err error = nil
 	global.GV_REDIS, err = redis.NewRedis(global.GV_CONFIG.Redis)
-
 	global.GV_REDIS.Process("FLUSHALL")
 
 	fmt.Println(utils.Cyan("- Redis -"))
-
 	return err
 }

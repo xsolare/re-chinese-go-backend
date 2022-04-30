@@ -3,14 +3,20 @@ package models
 type RoleType string
 
 const (
-	ADMIN   = 1
-	PREMIUM = 2
-	STAFF   = 3
+	ADMIN_ID   = 1
+	PREMIUM_ID = 2
+	STAFF_ID   = 3
+)
+
+const (
+	ADMIN   RoleType = "admin"
+	PREMIUM RoleType = "premium"
+	STAFF   RoleType = "staff"
 )
 
 type Role struct {
 	Id   int      `json:"id" gorm:"primaryKey;autoIncrement"`
-	Name RoleType `json:"name" gorm:"type:role_type;unique"`
+	Name RoleType `json:"name" gorm:"unique" sql:"type:role_type"`
 }
 
 func (s *Role) TableName() string {

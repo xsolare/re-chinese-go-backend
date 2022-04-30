@@ -2,7 +2,6 @@ package initialize
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/go-redis/redis/v8"
@@ -13,10 +12,10 @@ import (
 )
 
 func Config() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+	godotenv.Load(".env")
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file")
+	// }
 
 	//? Pgsql
 	g.GV_CONFIG.Pgsql.Host = os.Getenv("POSTGRES_HOST")

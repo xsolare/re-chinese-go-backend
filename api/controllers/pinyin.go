@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/gin-gonic/gin"
+	"github.com/xsolare/re-chinese-go-backend/api/models"
 	res "github.com/xsolare/re-chinese-go-backend/api/models/response"
 	"github.com/xsolare/re-chinese-go-backend/global"
 	"github.com/xsolare/re-chinese-go-backend/utils/response"
@@ -61,10 +62,17 @@ func (r *PinyinController) GetPinyin(c *gin.Context) {
 	json.Unmarshal([]byte(s_pinyin), &pinyin)
 
 	response.OkWithData(pinyin, c)
+
+	// err, data := pinyinService.Full()
+	// if err != nil {
+	// 	response.FailWithMessage(err.Error(), c)
+	// 	return
+	// }
+	// response.OkWithData(data, c)
 }
 
 func (r *PinyinController) GetFinals(c *gin.Context) {
-	s_finals, err := global.GV_REDIS.Get("pinyin")
+	s_finals, err := global.GV_REDIS.Get("finals")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 
@@ -79,14 +87,14 @@ func (r *PinyinController) GetFinals(c *gin.Context) {
 		return
 	}
 
-	var finals []res.Pinyin
+	var finals []models.Final
 	json.Unmarshal([]byte(s_finals), &finals)
 
 	response.OkWithData(finals, c)
 }
 
 func (r *PinyinController) GetInitials(c *gin.Context) {
-	s_initials, err := global.GV_REDIS.Get("pinyin")
+	s_initials, err := global.GV_REDIS.Get("initials")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 
@@ -101,7 +109,7 @@ func (r *PinyinController) GetInitials(c *gin.Context) {
 		return
 	}
 
-	var initials []res.Pinyin
+	var initials []models.Initial
 	json.Unmarshal([]byte(s_initials), &initials)
 
 	response.OkWithData(initials, c)

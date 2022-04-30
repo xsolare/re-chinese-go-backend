@@ -5,7 +5,6 @@ type Word struct {
 	Name           string       `json:"name" gorm:"type:varchar(50);not null"`
 	Pinyin         string       `json:"pinyin" gorm:"type:varchar(50);not null"`
 	Hsk            uint8        `json:"hsk" gorm:"type:smallint;default:1"`
-	PartOfSpeechId uint         `json:"partOfSpeechId"`
 	Hieroglyphic   []Hieroglyph `gorm:"many2many:words_hieroglyphic;"`
 }
 
