@@ -20,12 +20,19 @@ func (hieroglyphService *HieroglyphService) ById(id string) (err error, model mo
 	return err, data
 }
 
-func (hieroglyphService *HieroglyphService) ByName(name string) (err error, model []models.Hieroglyph) {
-	var data []models.Hieroglyph
+func (hieroglyphService *HieroglyphService) ByName(name string) (err error, model models.Hieroglyph) {
+	var data models.Hieroglyph
 
 	db := global.GV_DB.Model(&models.Hieroglyph{})
+	// err = db.Preload("Pinyin.Initial").
+	// 		 Preload("Pinyin.FinalTone").
+	// 		 Preload(clause.Associations).
+	// 		 Where("hieroglyph = ?", name).
+	// 		 First(&data).Error
+	
+	err = db.Where("hieroglyph = ?", name).
+			 First(&data).Error
 
-	err = db.Where("hieroglyph = ?", name).Find(&data).Error
 
 	return err, data
 }

@@ -15,10 +15,8 @@ func (r *WordRouter) InitWordRouter(rg *gin.RouterGroup) {
 
 	wordRouter.GET("/by-hieroglyph", api.GetByHieroglyph)
 
-	// wordRouter.
-	// 	Use(middleware.Auth()).
-	// 	Use(middleware.Role([]int{models.ADMIN})).
-	// 	POST("/", api.NewWord)
+	wordRouter.
+		POST("/", api.Add)
 
 	// wordRouter.
 	// 	Use(middleware.Auth()).

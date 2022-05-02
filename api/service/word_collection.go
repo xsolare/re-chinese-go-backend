@@ -18,7 +18,6 @@ func (wordCollectionService *WordCollectionService) CollectionById(id string) (e
 		select  w.id 				as id,
 				w.name				as hieroglyphics,
 				w.pinyin			as pinyin,
-				w.part_of_speech_id as part_of_speech_id,
 				wt.translate		as translate,
 				w.hsk				as hsk
 		from words_in_collections wic
