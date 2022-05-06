@@ -59,6 +59,7 @@ require (
 	github.com/rs/cors/wrapper/gin v0.0.0-20220223021805-a4a5ce87d5a2
 	github.com/swaggo/gin-swagger v1.4.2
 	github.com/ugorji/go/codec v1.2.7 // indirect
+	github.com/unrolled/secure v1.10.0
 	golang.org/x/sys v0.0.0-20220412071739-889880a91fd5 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect

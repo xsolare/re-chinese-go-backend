@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/xsolare/re-chinese-go-backend/api/models"
 	"github.com/xsolare/re-chinese-go-backend/api/models/dto"
+	res "github.com/xsolare/re-chinese-go-backend/api/models/response"
 	"github.com/xsolare/re-chinese-go-backend/global"
 )
 
@@ -29,10 +30,9 @@ func (hieroglyphService *HieroglyphService) ByName(name string) (err error, mode
 	// 		 Preload(clause.Associations).
 	// 		 Where("hieroglyph = ?", name).
 	// 		 First(&data).Error
-	
-	err = db.Where("hieroglyph = ?", name).
-			 First(&data).Error
 
+	err = db.Where("hieroglyph = ?", name).
+		First(&data).Error
 
 	return err, data
 }
@@ -68,4 +68,20 @@ func (hieroglyphService *HieroglyphService) DeleteHieroglyph(id string) (err err
 	global.GV_LOG.Warn("ID - ", data.Id)
 
 	return err, data
+}
+
+func (hieroglyphService *HieroglyphService) Keyss() (err error, model []res.HieroglyphKey) {
+	return err, model
+}
+
+func (hieroglyphService *HieroglyphService) Keys() (err error, model []res.HieroglyphKey) {
+
+	err = global.GV_DB.
+		// Debug().
+		Table("hieroglyphic_keys").
+		Preload("Hieroglyph").
+		Preload("Translate").
+		Find(&model).Error
+
+	return err, model
 }

@@ -69,7 +69,7 @@ func (pinyinService *PinyinService) PinyinsByInitalAndFinal(inital string, final
 				(select f.id from finals f where f.id = ft.final_id) as final_id,
 				ft.tone												 as tone
 		from pinyin pn
-		join finals_tone ft on ft.final_id = (select id from final)
+		left join finals_tone ft on ft.final_id = (select id from final)
 		where pn.final_tone_id = ft.id
 		and pn.initial_id = (select id from inital);
 	`, inital, final).Scan(&data).Error
@@ -93,9 +93,9 @@ func (pinyinService *PinyinService) ByTone(tone string) (err error, model []resp
 				f.pos											as final_pos,
 				i.pos											as initial_pos
 		from pinyin p 
-		join finals_tone ft on ft.id = p.final_tone_id
-		join finals 	 f	on f.id  = ft.final_id
-		join initials 	 i	on i.id  = p.initial_id
+		left join finals_tone ft on ft.id = p.final_tone_id
+		left join finals 	 f	on f.id  = ft.final_id
+		left join initials 	 i	on i.id  = p.initial_id
 		where ft.tone = ?;
 	`, tone).Scan(&data).Error
 
@@ -118,9 +118,9 @@ func (pinyinService *PinyinService) Full() (err error, model []response.Pinyin) 
 				f.pos											as final_pos,
 				i.pos											as initial_pos
 		from pinyin p 
-		join finals_tone ft on ft.id = p.final_tone_id
-		join finals 	 f	on f.id  = ft.final_id
-		join initials 	 i	on i.id  = p.initial_id;
+		left join finals_tone ft on ft.id = p.final_tone_id
+		left join finals 	 f	on f.id  = ft.final_id
+		left join initials 	 i	on i.id  = p.initial_id;
 	`).Scan(&data).Error
 
 	return err, data

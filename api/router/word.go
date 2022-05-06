@@ -14,8 +14,12 @@ func (r *WordRouter) InitWordRouter(rg *gin.RouterGroup) {
 	api := new(controllers.WordController)
 
 	wordRouter.GET("/by-hieroglyph", api.GetByHieroglyph)
+	wordRouter.GET("/:id", api.GetById)
+	wordRouter.GET("/translate/:id", api.GetTranslateById)
 
 	wordRouter.
+		// 	Use(middleware.Auth()).
+		// 	Use(middleware.Role([]int{models.ADMIN})).
 		POST("/", api.Add)
 
 	// wordRouter.

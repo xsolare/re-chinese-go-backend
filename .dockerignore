@@ -1,0 +1,7 @@
+.env
+.env.example
+re-chinese
+.vscode
+.github
+docker-compose.yml
+docker-recreate.sh

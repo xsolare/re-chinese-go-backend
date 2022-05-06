@@ -19,5 +19,5 @@ func main() {
 
 	//?		Gin routes and run server 		?//
 	r := initialize.NewRoutes()
-	r.Run(":8080")
+	r.RunTLS()
 }

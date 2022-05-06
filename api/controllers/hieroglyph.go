@@ -113,4 +113,16 @@ func (r *HieroglyphController) DeleteHieroglyph(c *gin.Context) {
 	response.OkWithData(data, c)
 }
 
+func (r *HieroglyphController) GetAllKeys(c *gin.Context) {
+
+	err, data := hieroglyphService.Keys()
+
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithData(data, c)
+}
+
 ///																											//

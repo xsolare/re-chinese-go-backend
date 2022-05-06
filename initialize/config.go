@@ -17,6 +17,12 @@ func Config() {
 	// 	log.Fatalf("Error loading .env file")
 	// }
 
+	//? Gin
+	g.GV_CONFIG.Gin.Port = os.Getenv("GIN_PORT")
+	g.GV_CONFIG.Gin.Host = os.Getenv("GIN_HOST")
+	g.GV_CONFIG.Gin.Cert = os.Getenv("GIN_CERT")
+	g.GV_CONFIG.Gin.Key = os.Getenv("GIN_KEY")
+
 	//? Pgsql
 	g.GV_CONFIG.Pgsql.Host = os.Getenv("POSTGRES_HOST")
 	g.GV_CONFIG.Pgsql.Port = os.Getenv("POSTGRES_PORT")

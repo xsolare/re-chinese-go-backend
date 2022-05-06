@@ -7,6 +7,7 @@ func (p *Pgsql) Dsn() string {
 }
 
 type Server struct {
+	Gin   Gin            `mapstructure:"gin" json:"gin" yaml:"gin"`
 	Pgsql Pgsql          `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
 	JWT   JWT            `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
 	Cors  CORS           `mapstructure:"cors" json:"cors" yaml:"cors"`

@@ -2,8 +2,10 @@ package initialize
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/unrolled/secure"
 	"github.com/xsolare/re-chinese-go-backend/api/middleware"
 	"github.com/xsolare/re-chinese-go-backend/api/router"
+	"github.com/xsolare/re-chinese-go-backend/global"
 )
 
 type Routes struct {
@@ -23,6 +25,12 @@ func NewRoutes() Routes {
 	r.router.Use(middleware.Cors())
 	// r.router.Use(middleware.CorsByRules())
 
+	r.router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
 	api := r.router.Group("/api/")
 
 	routes := new(router.RouterGroup)
@@ -39,6 +47,26 @@ func NewRoutes() Routes {
 }
 
 //* Startup
-func (r Routes) Run(addr ...string) error {
-	return r.router.Run()
+func (r Routes) Run() error {
+	return r.router.Run(global.GV_CONFIG.Gin.Port)
+}
+
+func (r Routes) RunTLS() error {
+	r.router.Use(LoadTLS())
+	return r.router.RunTLS(global.GV_CONFIG.Gin.Port, global.GV_CONFIG.Gin.Cert, global.GV_CONFIG.Gin.Key)
+}
+
+func LoadTLS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		middleware := secure.New(secure.Options{
+			SSLRedirect: true,
+			SSLHost:     global.GV_CONFIG.Gin.Host + global.GV_CONFIG.Gin.Port,
+		})
+		err := middleware.Process(c.Writer, c.Request)
+		if err != nil {
+			global.GV_LOG.Error(err)
+			return
+		}
+		c.Next()
+	}
 }

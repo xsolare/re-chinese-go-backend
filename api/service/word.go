@@ -57,3 +57,19 @@ func (wordService *WordService) AddWord(req *dto.Word) (err error, model models.
 
 	return err, model
 }
+
+func (wordService *WordService) ById(id string) (err error, model models.Word) {
+	db := global.GV_DB.Model(&models.Word{})
+
+	err = db.Where("id = ?", id).First(&model).Error
+
+	return err, model
+}
+
+func (wordService *WordService) TranslateById(word_id string, lang string) (err error, model []models.WordTranslate) {
+	db := global.GV_DB.Model(&models.WordTranslate{})
+
+	err = db.Where("word_id = ? AND language_id = ? AND part_of_speech_id = ?", word_id, lang, 1).Find(&model).Error
+
+	return err, model
+}

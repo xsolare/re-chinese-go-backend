@@ -22,11 +22,36 @@ func (r *WordController) GetByHieroglyph(c *gin.Context) {
 	response.OkWithData(data, c)
 }
 
+func (r *WordController) GetById(c *gin.Context) {
+	id := c.Param("id")
+	err, data := wordService.ById(id)
+
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithData(data, c)
+}
+
 func (r *WordController) Add(c *gin.Context) {
 	var req dto.Word
 	c.ShouldBindJSON(&req)
 
 	err, data := wordService.AddWord(&req)
+
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithData(data, c)
+}
+func (r *WordController) GetTranslateById(c *gin.Context) {
+	id := c.Param("id")
+	lang := c.Query("lang")
+
+	err, data := wordService.TranslateById(id, lang)
 
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

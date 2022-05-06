@@ -16,6 +16,7 @@ func (r *HieroglyphRouter) InitHieroglyphRouter(rg *gin.RouterGroup) {
 	hieroglyphRouter.GET("/pinyin/:pinyin", api.GetByPinyin)
 	hieroglyphRouter.GET("/name/:name", api.GetByName)
 	hieroglyphRouter.GET("/:id", api.GetById)
+	hieroglyphRouter.GET("/keys", api.GetAllKeys)
 	hieroglyphRouter.
 		Use(middleware.Auth()).
 		Use(middleware.Role([]int{models.ADMIN_ID})).

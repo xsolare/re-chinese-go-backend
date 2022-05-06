@@ -17,7 +17,7 @@ services:
     volumes:
       - redis-data:/data
   api:
-    # image: ${IMAGE_BACKEND}
+    # image: evvvai/re-chinese-backend:v4
     build:
       context: .
       dockerfile: Dockerfile
@@ -26,7 +26,6 @@ services:
       - .env
     environment:
       - REDIS_ADDR=rediska:6379
-      - GIN_MODE=release
     expose:
       - 8080
     ports:
@@ -36,6 +35,9 @@ services:
     links:
       - rediska
     restart: always
+    volumes:
+      - ./ssl/prod:/ssl/prod
+
 volumes:
   redis-data:
     driver: local
